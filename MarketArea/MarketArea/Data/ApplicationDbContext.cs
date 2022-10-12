@@ -71,11 +71,13 @@ namespace MarketArea.Data
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<UserFavorite>()
-                .HasNoKey()
                 .HasOne(uf => uf.User)
                 .WithMany()
                 .HasForeignKey(uf => uf.UserId)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<UserFavorite>()
+              .HasKey(uf => new { uf.UserId, uf.AdId });
 
             modelBuilder.Entity<UserLikes>()
                .HasKey(ua => new { ua.UserId, ua.AdId });
@@ -91,7 +93,7 @@ namespace MarketArea.Data
 
             modelBuilder.Entity<Comment>()
                 .HasOne(c => c.Ad)
-                .WithMany()
+                .WithMany(a=> a.Comments)
                 .HasForeignKey(c => c.AdId)
                 .OnDelete(DeleteBehavior.NoAction);
         }
