@@ -100,6 +100,33 @@ namespace MarketArea.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1",
+                            Name = "Electronics"
+                        },
+                        new
+                        {
+                            Id = "2",
+                            Name = "Cars"
+                        },
+                        new
+                        {
+                            Id = "3",
+                            Name = "Animals"
+                        },
+                        new
+                        {
+                            Id = "4",
+                            Name = "Fashions"
+                        },
+                        new
+                        {
+                            Id = "5",
+                            Name = "Services"
+                        });
                 });
 
             modelBuilder.Entity("MarketArea.Data.ModelDb.City", b =>
@@ -115,6 +142,33 @@ namespace MarketArea.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Cities");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1",
+                            Name = "Sofia"
+                        },
+                        new
+                        {
+                            Id = "2",
+                            Name = "Plovdiv"
+                        },
+                        new
+                        {
+                            Id = "3",
+                            Name = "Varna"
+                        },
+                        new
+                        {
+                            Id = "4",
+                            Name = "Burgas"
+                        },
+                        new
+                        {
+                            Id = "5",
+                            Name = "Ruse"
+                        });
                 });
 
             modelBuilder.Entity("MarketArea.Data.ModelDb.Comment", b =>

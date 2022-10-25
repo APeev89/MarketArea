@@ -24,6 +24,19 @@ namespace MarketArea.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Category>().HasData(new Category { Id = "1", Name = "Electronics" });
+            modelBuilder.Entity<Category>().HasData(new Category { Id = "2", Name = "Cars" });
+            modelBuilder.Entity<Category>().HasData(new Category { Id = "3", Name = "Animals" });
+            modelBuilder.Entity<Category>().HasData(new Category { Id = "4", Name = "Fashions" });
+            modelBuilder.Entity<Category>().HasData(new Category { Id = "5", Name = "Services" });
+
+            modelBuilder.Entity<City>().HasData(new City { Id = "1", Name = "Sofia" });
+            modelBuilder.Entity<City>().HasData(new City { Id = "2", Name = "Plovdiv" });
+            modelBuilder.Entity<City>().HasData(new City { Id = "3", Name = "Varna" });
+            modelBuilder.Entity<City>().HasData(new City { Id = "4", Name = "Burgas" });
+            modelBuilder.Entity<City>().HasData(new City { Id = "5", Name = "Ruse" });
+
+
             modelBuilder.Entity<Ad>()
                 .HasOne(a => a.User)
                 .WithMany()

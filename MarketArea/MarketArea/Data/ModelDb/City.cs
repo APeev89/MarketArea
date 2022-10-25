@@ -6,6 +6,7 @@ namespace MarketArea.Data.ModelDb
     {
         public City()
         {
+            this.Id = Guid.NewGuid().ToString();
             this.Ads = new HashSet<Ad>();
         }
 

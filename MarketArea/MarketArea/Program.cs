@@ -1,6 +1,9 @@
 using MarketArea.Constants;
+using MarketArea.Contracts;
 using MarketArea.Data;
+using MarketArea.Data.Common;
 using MarketArea.ModelBinders;
+using MarketArea.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,6 +26,10 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 
 })
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.AddScoped<IRepository, Repository>();
+builder.Services.AddScoped<IAdService, AdService>();
+builder.Services.AddScoped<IValidationService, ValidationService>();
 
 builder.Services.AddControllersWithViews()
     .AddMvcOptions(options =>

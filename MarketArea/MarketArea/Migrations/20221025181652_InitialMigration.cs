@@ -311,6 +311,30 @@ namespace MarketArea.Migrations
                         principalColumn: "Id");
                 });
 
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { "1", "Electronics" },
+                    { "2", "Cars" },
+                    { "3", "Animals" },
+                    { "4", "Fashions" },
+                    { "5", "Services" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Cities",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { "1", "Sofia" },
+                    { "2", "Plovdiv" },
+                    { "3", "Varna" },
+                    { "4", "Burgas" },
+                    { "5", "Ruse" }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Ads_CategoryId",
                 table: "Ads",
