@@ -16,3 +16,13 @@ html {
 body {
   margin-bottom: 60px;
 }
+.btn-edit {
+    color: #fff;
+    background-color: #cdad0f;
+}
+
+.btn-edit:hover {
+    color: #fff;
+    background-color: #d3220f;
+    border-color: #d3220f;
+}

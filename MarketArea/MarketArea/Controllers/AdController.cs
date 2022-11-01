@@ -57,9 +57,10 @@ namespace MarketArea.Controllers
             });
         }
 
-        public IActionResult Detail(string id)
+        public IActionResult Details(string id)
         {
-            return View();
+            var ad = adService.Details(id);
+            return View(ad);
         }
 
         [HttpPost]

@@ -64,6 +64,12 @@ namespace MarketArea.Data.ModelDb
         public Category Category { get; set; }
 
         public ICollection<Comment> Comments { get; set; }
+
+        internal Ad Include()
+        {
+            throw new NotImplementedException();
+        }
+
         public ICollection<UserSeens> Seens { get; set; }
         public ICollection<UserLikes> Likes { get; set; }
         public ICollection<UserFavorite> UserFavorites { get; set; }

@@ -1,8 +1,0 @@
-﻿@using MarketArea.Data.ModelDb
-@model IEnumerable<Category>
-
-@*@foreach (var category in Model)
-{
-    <a asp-controller="Ad" asp-action="All" asp-route-category="@category.Name">@category.Name</a>
-}*@
-<a asp-controller="Ad" asp-action="All" asp-route-category="">"View all ads"</a>

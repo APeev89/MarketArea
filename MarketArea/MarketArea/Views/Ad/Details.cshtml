@@ -1,0 +1,31 @@
+﻿@inject UserManager<IdentityUser> userManager
+@model Ad
+
+<h2 class="text-center"><u>@Model.Name</u></h2>
+
+<div class="thumbnail">
+    <img alt="@Model.Name" src="@Model.ImageUrl">
+    <div class="caption-full">
+        <h3 class="pull-right">@Model.Price.ToString("c")</h3>
+        <dl>
+            <dt>Contact us:</dt>
+            <dd><u>Phone:</u> @Model.PhoneNumber</dd>
+            <dd><u>Email:</u> @Model.Email</dd>
+            <dd><u>City:</u> @Model.City.Name</dd>
+        </dl>
+        <p><u>Info:</u> @Model.Description</p>
+        <ul>
+            <li>Valid until: @Model.DateTo.ToString("d")</li>
+        </ul>
+
+        @if (@Model.UserId == userManager.GetUserId(User))
+        {
+            <span class="EditBtn">
+                <p class="button">
+                    <a class="btn btn-edit" asp-controller="Ad" asp-action="Edit"
+                   asp-route-id="@Model.Id">Edit</a>
+                </p>
+            </span>
+        }
+    </div>
+</div>

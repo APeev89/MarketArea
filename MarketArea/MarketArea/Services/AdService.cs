@@ -3,6 +3,7 @@ using MarketArea.Data.Common;
 using MarketArea.Data.ModelDb;
 using MarketArea.ViewModels;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace MarketArea.Services
 {
@@ -58,5 +59,10 @@ namespace MarketArea.Services
             return (created, error);
         }
 
+        public Ad Details(string id)
+        {
+            return repo.All<Ad>().Include(x => x.City).Include(x => x.Category).Single(x => x.Id == id);
+
+        }
     }
 }
