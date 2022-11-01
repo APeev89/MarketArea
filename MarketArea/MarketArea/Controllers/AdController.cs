@@ -8,6 +8,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Collections.Generic;
 using MarketArea.Data.Common;
+using Microsoft.EntityFrameworkCore;
 
 namespace MarketArea.Controllers
 {
@@ -34,6 +35,33 @@ namespace MarketArea.Controllers
             return View(myDynamicModel);
         }
 
+        public IActionResult All(string category)
+        {
+            IEnumerable<Ad> ads;
+            string currentCategory;
+            if (category == null)
+            {
+                ads = repo.All<Ad>().Include(a=>a.City).OrderBy(x => x.DateFrom);
+                currentCategory = "All ads";
+            }
+            else
+            {
+                ads = repo.All<Ad>().Include(a => a.City).Where(x => x.Category.Name == category).OrderBy(x => x.DateFrom);
+                currentCategory = category;
+            }
+
+            return View(new AllAdViewModel
+            {
+                Ads = ads,
+                CurrentCategory = currentCategory
+            });
+        }
+
+        public IActionResult Detail(string id)
+        {
+            return View();
+        }
+
         [HttpPost]
         public IActionResult Create(CreateAdViewModel model)
         {
@@ -41,11 +69,13 @@ namespace MarketArea.Controllers
             var (created, error) = adService.Create(model,user);
             if (!created)
             {
+                return Redirect("/Ad/Create");
             }
 
             return Redirect("/");
         }
 
+        
 
     }
 }

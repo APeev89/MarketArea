@@ -27,15 +27,8 @@ namespace MarketArea.Services
                 return (isValid, validationError);
             }
 
-            var category = new Category()
-            {
-                Name = model.Category
-            };
-
-            var city = new City()
-            {
-                Name = model.City
-            };
+            var city = repo.All<City>().FirstOrDefault(x => x.Id == model.City);
+            var category = repo.All<Category>().FirstOrDefault(x => x.Id == model.Category);
 
 
             var ad = new Ad()
@@ -53,8 +46,6 @@ namespace MarketArea.Services
 
             try
             {
-                repo.Add(category);
-                repo.Add(city);
                 repo.Add(ad);
                 repo.SaveChanges();
                 created = true;
@@ -66,5 +57,6 @@ namespace MarketArea.Services
 
             return (created, error);
         }
+
     }
 }
