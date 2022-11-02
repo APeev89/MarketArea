@@ -1,4 +1,4 @@
-﻿@model dynamic
+﻿@model CreateAdViewModel
 @{
     ViewData["Title"] = "Create a new ad";
 }
@@ -7,21 +7,11 @@
     <form method="post">
         <label for="name">Category</label>
         <div class="form-group">
-            <select id="category" name="Category">
-                @foreach (Category category in Model.Category)
-                {
-                    <option value="@category.Id">@category.Name</option>
-                }
-            </select>
+            @Html.DropDownList("AdCategory")
         </div>
         <label for="name">City</label>
         <div class="form-group">
-            <select id="city" name="City">
-                @foreach (City category in Model.City)
-                {
-                    <option value="@category.Id">@category.Name</option>
-                }
-            </select>
+            @Html.DropDownList("AdCity")
         </div>
         <div class="form-group">
             <label for="name">Title</label>

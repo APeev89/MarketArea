@@ -7,7 +7,7 @@ namespace MarketArea.Contracts
     public interface IAdService
     {
         (bool create, string error) Create(CreateAdViewModel model, IdentityUser user);
-
+        bool Edit(EditViewModel model);
         Ad Details(string id);
     }
 }

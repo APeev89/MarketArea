@@ -19,7 +19,7 @@ namespace MarketArea.ViewModels
 
         [Required]
         [StringLength(100)]
-        public string City { get; set; }
+        public string AdCity { get; set; }
 
         [Required]
         [StringLength(300)]
@@ -30,7 +30,7 @@ namespace MarketArea.ViewModels
         public string Description { get; set; }
 
         [Required]
-        public string Category { get; set; }
+        public string AdCategory { get; set; }
 
 
 

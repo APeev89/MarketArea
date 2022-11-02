@@ -1,4 +1,5 @@
-﻿@inject UserManager<IdentityUser> userManager
+﻿
+@inject UserManager<IdentityUser> userManager
 @model Ad
 
 <h2 class="text-center"><u>@Model.Name</u></h2>
@@ -6,7 +7,7 @@
 <div class="thumbnail">
     <img alt="@Model.Name" src="@Model.ImageUrl">
     <div class="caption-full">
-        <h3 class="pull-right">@Model.Price.ToString("c")</h3>
+        <h3 class="pull-right">@Model.Price.ToString("c2",CultureInfo.CreateSpecificCulture("bg-BG"))</h3>
         <dl>
             <dt>Contact us:</dt>
             <dd><u>Phone:</u> @Model.PhoneNumber</dd>

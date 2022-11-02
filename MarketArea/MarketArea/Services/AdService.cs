@@ -3,6 +3,7 @@ using MarketArea.Data.Common;
 using MarketArea.Data.ModelDb;
 using MarketArea.ViewModels;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace MarketArea.Services
@@ -28,10 +29,13 @@ namespace MarketArea.Services
                 return (isValid, validationError);
             }
 
-            var city = repo.All<City>().FirstOrDefault(x => x.Id == model.City);
-            var category = repo.All<Category>().FirstOrDefault(x => x.Id == model.Category);
+            var city = repo.All<City>().FirstOrDefault(x => x.Name == model.AdCity);
+            var category = repo.All<Category>().FirstOrDefault(x => x.Name == model.AdCategory);
 
-
+            if (category is null || city is null)
+            {
+                return (created, "Can not be found city or category!");
+            }
             var ad = new Ad()
             {
                 Name = model.Name,
@@ -64,5 +68,45 @@ namespace MarketArea.Services
             return repo.All<Ad>().Include(x => x.City).Include(x => x.Category).Single(x => x.Id == id);
 
         }
+
+        public bool Edit(EditViewModel model)
+        {
+            bool created = false;
+
+            var ad = repo.GetById<Ad>(model.Id);
+            var category = repo.All<Category>().FirstOrDefault(x=>x.Name == model.AdCategory);
+            var city = repo.All<City>().FirstOrDefault(x=>x.Name == model.AdCity);
+
+            if (category is null || city is null)
+            {
+                return created;
+            }
+            var (isValid, validationError) = validationService.ValidateModel(model);
+
+            if (!isValid)
+            {
+                return isValid;
+            }
+            try
+            {
+                ad.Name = model.Name;
+                ad.ImageUrl = model.ImageUrl;
+                ad.Price = model.Price;
+                ad.PhoneNumber = model.PhoneNumber;
+                ad.Description = model.Description;
+                ad.Category = category;
+                ad.City = city;
+                repo.SaveChanges();
+                created = true;
+            }
+            catch (Exception)
+            {
+            }
+
+            return created;
+
+        }
+
+        
     }
 }
