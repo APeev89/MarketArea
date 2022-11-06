@@ -28,5 +28,14 @@
                 </p>
             </span>
         }
+        @if (@Model.UserId == userManager.GetUserId(User))
+        {
+            <span class="DeleteBtn">
+                <p class="button">
+                    <a class="btn btn-delete" asp-controller="Ad" asp-action="Delete"
+                   asp-route-id="@Model.Id">Delete</a>
+                </p>
+            </span>
+        }
     </div>
 </div>

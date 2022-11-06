@@ -21,8 +21,19 @@ body {
     background-color: #cdad0f;
 }
 
-.btn-edit:hover {
+    .btn-edit:hover {
+        color: #fff;
+        background-color: #2dc416;
+        border-color: #2dc416;
+    }
+
+.btn-delete {
     color: #fff;
-    background-color: #d3220f;
-    border-color: #d3220f;
+    background-color: #ff0000;
 }
+
+    .btn-delete:hover {
+        color: #fff;
+        background-color: #ff6a00;
+        border-color: #ff6a00;
+    }

@@ -63,6 +63,53 @@ namespace MarketArea.Services
             return (created, error);
         }
 
+        public bool Delete(string id)
+        {
+            var ad = repo.GetById<Ad>(id);
+            if (ad == null)
+            {
+                return false;
+            }
+               
+
+            var getUserFavorite = repo.All<UserFavorite>().FirstOrDefault(uf=>uf.AdId == ad.Id);
+            if (getUserFavorite != null)
+            {
+                repo.Delete(getUserFavorite);
+            }
+
+            var getUserLies = repo.All<UserLikes>().FirstOrDefault(uf => uf.AdId == ad.Id);
+            if (getUserLies != null)
+            {
+
+                repo.Delete(getUserLies);
+            }
+
+            var getUserSeens = repo.All<UserSeens>().FirstOrDefault(uf => uf.AdId == ad.Id);
+            if (getUserSeens != null)
+            {
+                repo.Delete(getUserSeens);
+            }
+
+            var getComment = repo.All<Comment>().FirstOrDefault(uf => uf.AdId == ad.Id);
+            if (getComment != null)
+            {
+                repo.Delete(getComment);
+            }
+            try
+            {
+                repo.Delete(ad);
+                repo.SaveChanges();
+            }
+            catch (Exception)
+            {
+
+                throw new Exception("Could not delete product");
+            }
+            
+            return true; 
+        }
+
         public Ad Details(string id)
         {
             return repo.All<Ad>().Include(x => x.City).Include(x => x.Category).Single(x => x.Id == id);

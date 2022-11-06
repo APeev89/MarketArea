@@ -122,6 +122,16 @@ namespace MarketArea.Controllers
 
         }
 
+        public IActionResult Delete(string id)
+        {
+            var removed = adService.Delete(id);
+            if (!removed)
+            {
+                return Redirect($"/Ad/Details/{id}");
+            }
+            return Redirect("/");
+        }
+
 
         private static List<SelectListItem> DropDownCategoriesMenu(IOrderedQueryable<Category> categories)
         {
@@ -143,5 +153,6 @@ namespace MarketArea.Controllers
 
             return items;
         }
+
     }
 }
