@@ -1,4 +1,4 @@
-﻿@model AllAdViewModel
+﻿@model FavouritesViewModel
 <section class="mainpage-gallery" id="mainpageAds"></section>
 <head>
     <title>@Model.CurrentCategory</title>
@@ -6,24 +6,42 @@
 
 <div class="gallerywide" id="gallerywide">
 
-    @foreach (var ad in Model.Ads)
+    @foreach (var fav in Model.FavouriteAds)
     {
         <div class="wrapper">
             <div class="thumbnail">
-                <img src="@ad.ImageUrl" alt="">
+                <div class="cb">
+                    <label>
+                        @if (fav.IsChecked)
+                        {
+                            <input class="favoriteCheck" type="checkbox" id="@fav.Ad.Id" checked>
+                        }
+                        else
+                        {
+                            <input class="favoriteCheck" type="checkbox" id="@fav.Ad.Id">
+                        }
+                        <span>Favorite</span>
+                    </label>
+                </div>
+                <img class="img" src="@fav.Ad.ImageUrl" alt="">
                 <div class="caption">
-                    <h4 class="normal">
-                        <a asp-controller="Ad" asp-action="Details" asp-route-id="@ad.Id" title="@ad.Name">
-                            <strong>@ad.Name</strong>
+                    <h6 class="normal">
+                        <a asp-controller="Ad" asp-action="Details" asp-route-id="@fav.Ad.Id" title="@fav.Ad.Name">
+                            <strong>@fav.Ad.Name</strong>
                         </a>
-                    </h4>
+                    </h6>
+
                     <ul class="date-location">
-                        <li>@ad.City.Name</li>
-                        <li>@ad.DateFrom</li>
+                        <li>@fav.Ad.City.Name</li>
+                        <li>@fav.Ad.DateFrom</li>
                     </ul>
-                    <h6 class="pull-right">@ad.Price.ToString("c2",CultureInfo.CreateSpecificCulture("bg-BG"))</h6>
+                    <h6 class="pull-right">@fav.Ad.Price.ToString("c2",CultureInfo.CreateSpecificCulture("bg-BG"))</h6>
                 </div>
             </div>
         </div>
     }
 </div>
+
+@section Scripts{
+<script src="~/js/favoriteCheck.js" asp-append-version="true"></script>
+}

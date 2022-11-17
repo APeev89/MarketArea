@@ -42,6 +42,7 @@ namespace MarketArea.Controllers
         {
             IEnumerable<Ad> ads;
             string currentCategory;
+            
             if (category == null)
             {
                 ads = repo.All<Ad>().Include(a => a.City).OrderBy(x => x.DateFrom);
@@ -52,12 +53,24 @@ namespace MarketArea.Controllers
                 ads = repo.All<Ad>().Include(a => a.City).Where(x => x.Category.Name == category).OrderBy(x => x.DateFrom);
                 currentCategory = category;
             }
-
-            return View(new AllAdViewModel
+            var user = userManager.GetUserAsync(User).Result;
+            var userFavourtes = repo.All<UserFavorite>().Where(u => u.UserId == user.Id).ToDictionary(u=> u.AdId);
+            FavouritesViewModel favouritesViewModel = new FavouritesViewModel()
             {
-                Ads = ads,
                 CurrentCategory = currentCategory
-            });
+            };
+
+
+            foreach (var ad in ads)
+            {
+                FavouriteAdViewModel favouriteAdViewModel = new FavouriteAdViewModel()
+                {
+                    Ad = ad,
+                    IsChecked = userFavourtes.ContainsKey(ad.Id)
+                };
+                favouritesViewModel.FavouriteAds.Add(favouriteAdViewModel);
+            }
+            return View(favouritesViewModel);
         }
 
         public IActionResult Details(string id)
