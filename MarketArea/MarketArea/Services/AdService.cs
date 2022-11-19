@@ -17,6 +17,43 @@ namespace MarketArea.Services
             repo = _repo;
             validationService = _validationService;
         }
+
+        public FavouritesViewModel all(string category, IdentityUser user)
+        {
+            IEnumerable<Ad> ads;
+            string currentCategory;
+
+            if (category == null)
+            {
+                ads = repo.All<Ad>().Include(a => a.City).OrderBy(x => x.DateFrom);
+                currentCategory = "All ads";
+            }
+            else
+            {
+                ads = repo.All<Ad>().Include(a => a.City).Where(x => x.Category.Name == category).OrderBy(x => x.DateFrom);
+                currentCategory = category;
+            }
+            
+            var userFavourtes = repo.All<UserFavorite>().Where(u => u.UserId == user.Id).ToDictionary(u => u.AdId);
+            FavouritesViewModel favouritesViewModel = new FavouritesViewModel()
+            {
+                CurrentCategory = currentCategory
+            };
+
+
+            foreach (var ad in ads)
+            {
+                FavouriteAdViewModel favouriteAdViewModel = new FavouriteAdViewModel()
+                {
+                    Ad = ad,
+                    IsChecked = userFavourtes.ContainsKey(ad.Id)
+                };
+                favouritesViewModel.FavouriteAds.Add(favouriteAdViewModel);
+            }
+
+            return favouritesViewModel;
+        }
+
         public (bool create, string error) Create(CreateAdViewModel model, IdentityUser user)
         {
             bool created = false;

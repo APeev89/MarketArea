@@ -40,36 +40,9 @@ namespace MarketArea.Controllers
 
         public IActionResult All(string category)
         {
-            IEnumerable<Ad> ads;
-            string currentCategory;
-            
-            if (category == null)
-            {
-                ads = repo.All<Ad>().Include(a => a.City).OrderBy(x => x.DateFrom);
-                currentCategory = "All ads";
-            }
-            else
-            {
-                ads = repo.All<Ad>().Include(a => a.City).Where(x => x.Category.Name == category).OrderBy(x => x.DateFrom);
-                currentCategory = category;
-            }
             var user = userManager.GetUserAsync(User).Result;
-            var userFavourtes = repo.All<UserFavorite>().Where(u => u.UserId == user.Id).ToDictionary(u=> u.AdId);
-            FavouritesViewModel favouritesViewModel = new FavouritesViewModel()
-            {
-                CurrentCategory = currentCategory
-            };
+            FavouritesViewModel favouritesViewModel = adService.all(category, user);
 
-
-            foreach (var ad in ads)
-            {
-                FavouriteAdViewModel favouriteAdViewModel = new FavouriteAdViewModel()
-                {
-                    Ad = ad,
-                    IsChecked = userFavourtes.ContainsKey(ad.Id)
-                };
-                favouritesViewModel.FavouriteAds.Add(favouriteAdViewModel);
-            }
             return View(favouritesViewModel);
         }
 
@@ -97,7 +70,7 @@ namespace MarketArea.Controllers
 
             ViewBag.AdCategory = itemsCategories;
             ViewBag.AdCity = itemsCities;
-
+            
 
 
             return View(new EditViewModel()
@@ -130,7 +103,8 @@ namespace MarketArea.Controllers
         [HttpPost]
         public IActionResult Edit(EditViewModel model)
         {
-            var created = adService.Edit(model);
+            adService.Edit(model);
+            
             return Redirect($"/Ad/Details/{model.Id}");
 
         }

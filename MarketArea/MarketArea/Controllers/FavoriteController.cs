@@ -1,4 +1,5 @@
-﻿using MarketArea.Data.Common;
+﻿using MarketArea.Contracts;
+using MarketArea.Data.Common;
 using MarketArea.Data.ModelDb;
 using MarketArea.ViewModels;
 using Microsoft.AspNetCore.Cors;
@@ -12,56 +13,47 @@ namespace MarketArea.Controllers
     {
         private readonly UserManager<IdentityUser> userManager;
         private readonly IRepository repo;
+        private readonly IFavoriteService favoriteService;
 
-        public FavoriteController(UserManager<IdentityUser> _userManager, IRepository _repo)
+        public FavoriteController(UserManager<IdentityUser> _userManager, IRepository _repo, IFavoriteService _favoriteService)
         {
             userManager = _userManager;
             repo = _repo;
+            favoriteService = _favoriteService;
         }
 
 
 
-       // public IActionResult MyFavorite()
-        //{
-        //    var user = userManager.GetUserAsync(User).Result;
-        //    var ads = repo.All<Ad>()
-        //        .Include(a => a.City)
-        //        .OrderBy(x => x.DateFrom);
-
-        //    var userFavoritesAds = repo.All<UserFavorite>().Include(x => x.Ad).Where(x => x.UserId == user.Id);
-
-
-
-        //    AllAdViewModel allAdViewModel = new AllAdViewModel()
-        //    {
-        //        Ads = ads,
-        //        CurrentCategory = "All ads"
-        //    };
-
-        //    return View("Views/Ad/All.cshtml", allAdViewModel);
-
-        //}
-
-
-        [HttpPost]
-        public IActionResult AddToFavorite(string id, bool setFavourite)
+        public IActionResult MyFavorite()
         {
             var user = userManager.GetUserAsync(User).Result;
-            repo.Add<UserFavorite>(new UserFavorite
-            {
-                AdId = id,
-                UserId = user.Id
-            });
+            FavouritesViewModel favouritesViewModel = favoriteService.MyFavorite(user);
 
-            repo.SaveChanges();
+            return View("Views/Ad/All.cshtml", favouritesViewModel);
 
-
-            return Json(new {message="succes"});
         }
 
-        //public IActionResult RemoveFromFavorite()
-        //{
+        [HttpPost]
+        public IActionResult AddToFavorite(string id)
+        {
+            var user = userManager.GetUserAsync(User).Result;
+            var message = favoriteService.Add(id, user);
 
-        //}
+            return Json(new { result = message });
+        }
+
+        public IActionResult RemoveFromFavorite(string id)
+        {
+            
+            var user = userManager.GetUserAsync(User).Result;
+
+            var isRemoved = favoriteService.Delete(id, user);
+            if (!isRemoved)
+            {
+                throw new Exception("Cannot be removed");
+            }
+
+            return Json(new { result = "success"});
+        }
     }
 }

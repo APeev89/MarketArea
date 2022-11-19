@@ -8,6 +8,7 @@ namespace MarketArea.Contracts
     {
         (bool create, string error) Create(CreateAdViewModel model, IdentityUser user);
         bool Edit(EditViewModel model);
+        FavouritesViewModel all(string category, IdentityUser user);
         bool Delete(string id);
         Ad Details(string id);
     }

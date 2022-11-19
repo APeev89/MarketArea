@@ -8,37 +8,39 @@
 
     }
 
-
     function checkedButtonFunc(event) {
-        event.preventDefault();
-
+        
         let checkBoxId = event.target.getAttribute("id");
-        let getCheckBoxById = document.querySelector('.');
+        let getCheckBoxById = document.getElementsByClassName("favoriteCheck");
         let request;
+        let currentUrl;
         
         if (event.target.checked) {
             getCheckBoxById.checked = true;
             request = "post";
-        }
-        else {
+            currentUrl = "https://localhost:7134/Favorite/AddToFavorite";
+        }else {
             
             getCheckBoxById.checked = false;
             request = "delete";
+            currentUrl = "https://localhost:7134/Favorite/RemoveFromFavorite";
         }
         $.ajax({
             type: request,
-            url: "https://localhost:7134/Favorite/AddToFavorite",
-            dataType: "jsonp",
+            url: currentUrl,
+            dataType: "json",
             data: {
-                id: checkBoxId,
-                setFavourite: event.target.checked,
-
+                id: checkBoxId
             },
-            success: function (response) {
-                console.log("true");
-            }
+            success: function () {
+                window.location.reload();
+            },
+            error: function (request, status, error) {
+                console.log(request.responseText);
+                console.log(error);
+            },
         });
-
+        
     }
-
+    
 }
