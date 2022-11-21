@@ -1,4 +1,5 @@
-﻿using MarketArea.Data.Common;
+﻿using MarketArea.Contracts;
+using MarketArea.Data.Common;
 using MarketArea.Data.ModelDb;
 using MarketArea.ViewModels;
 using Microsoft.AspNetCore.Identity;
@@ -9,21 +10,20 @@ namespace MarketArea.Controllers
 {
     public class LikeController : BaseController
     {
-        private readonly IRepository repo;
         private readonly UserManager<IdentityUser> userManager;
-        public LikeController(IRepository _repo, UserManager<IdentityUser> _userManager)
+        private readonly ILikeService likeService;
+        public LikeController(UserManager<IdentityUser> _userManager, ILikeService _likeService)
         {
-            repo = _repo;
             userManager = _userManager;
+            likeService = _likeService;
         }
 
         public IActionResult LikeDislike(string id)
         {
-
+            var user = userManager.GetUserAsync(User).Result;
+            likeService.LikeDislike(id, user);
 
             return Json(new { result = "success" });
         }
-
-       
     }
 }

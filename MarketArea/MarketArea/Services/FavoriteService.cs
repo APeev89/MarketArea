@@ -81,8 +81,7 @@ namespace MarketArea.Services
                 repo.SaveChanges();
                 removed = true;
             }catch (Exception)
-            {
-                
+            {  
             }
             
 

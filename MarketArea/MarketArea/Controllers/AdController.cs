@@ -48,7 +48,7 @@ namespace MarketArea.Controllers
 
         public IActionResult Details(string id)
         {
-            var ad = adService.Details(id);
+            LikeAdViewModel ad = adService.Details(id);
             return View(ad);
         }
 

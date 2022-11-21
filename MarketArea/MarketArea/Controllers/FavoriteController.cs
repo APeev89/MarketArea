@@ -50,7 +50,7 @@ namespace MarketArea.Controllers
             var isRemoved = favoriteService.Delete(id, user);
             if (!isRemoved)
             {
-                throw new Exception("Cannot be removed");
+                Console.WriteLine("Cannot be removed");
             }
 
             return Json(new { result = "success"});

@@ -141,15 +141,23 @@ namespace MarketArea.Services
             catch (Exception)
             {
 
-                throw new Exception("Could not delete product");
+                Console.WriteLine("Could not delete product");
             }
             
             return true; 
         }
 
-        public Ad Details(string id)
+        public LikeAdViewModel Details(string id)
         {
-            return repo.All<Ad>().Include(x => x.City).Include(x => x.Category).Single(x => x.Id == id);
+            var ad = repo.All<Ad>().Include(x => x.City).Include(x => x.Category).Single(x => x.Id == id);
+            var adLikes = repo.All<UserLikes>().Where(a => a.AdId == ad.Id).ToDictionary(u => u.UserId);
+            LikeAdViewModel likeAd = new LikeAdViewModel()
+            {
+                Ad = ad,
+                NumberOfLikes = adLikes.Count()
+
+            };
+            return likeAd;
 
         }
 

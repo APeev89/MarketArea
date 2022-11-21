@@ -10,6 +10,6 @@ namespace MarketArea.Contracts
         bool Edit(EditViewModel model);
         FavouritesViewModel all(string category, IdentityUser user);
         bool Delete(string id);
-        Ad Details(string id);
+        LikeAdViewModel Details(string id);
     }
 }
