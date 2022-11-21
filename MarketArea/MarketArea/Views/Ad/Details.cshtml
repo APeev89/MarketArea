@@ -1,41 +1,51 @@
 ﻿@inject UserManager<IdentityUser> userManager
-@model Ad
+@model LikeAdViewModel
 
-<h2 class="text-center"><u>@Model.Name</u></h2>
+<h2 class="text-center"><u>@Model.Ad.Name</u></h2>
 
 <div class="detailPage">
-    <img alt="@Model.Name" src="@Model.ImageUrl">
+    <img alt="@Model.Ad.Name" src="@Model.Ad.ImageUrl">
+
     <div class="caption-full">
-        <h3 class="detailPrice">@Model.Price.ToString("c2",CultureInfo.CreateSpecificCulture("bg-BG"))</h3>
+        <h3 class="detailPrice">@Model.Ad.Price.ToString("c2",CultureInfo.CreateSpecificCulture("bg-BG"))</h3>
         <dl>
             <dt>Contact us:</dt>
-            <dd><u>Phone:</u> @Model.PhoneNumber</dd>
-            <dd><u>Email:</u> @Model.Email</dd>
-            <dd><u>City:</u> @Model.City.Name</dd>
+            <dd><u>Phone:</u> @Model.Ad.PhoneNumber</dd>
+            <dd><u>Email:</u> @Model.Ad.Email</dd>
+            <dd><u>City:</u> @Model.Ad.City.Name</dd>
         </dl>
-        <p><u>Info:</u> @Model.Description</p>
+        <p><u>Info:</u> @Model.Ad.Description</p>
         <ul>
-            <li>Valid until: @Model.DateTo.ToString("d")</li>
+            <li>Valid until: @Model.Ad.DateTo.ToString("d")</li>
         </ul>
+        <div class="LikeBtn">
+            <button class="Like" id="@Model.Ad.Id">
+                <i class="far fa-thumbs-up"></i>Likes @Model.NumberOfLikes
+            </button>
+        </div>
 
 
-        @if (@Model.UserId == userManager.GetUserId(User))
+        @if (@Model.Ad.UserId == userManager.GetUserId(User))
         {
             <span class="EditBtn">
-                <p class="button">
+                <button class="button">
                     <a class="btn btn-edit" asp-controller="Ad" asp-action="Edit"
-                   asp-route-id="@Model.Id">Edit</a>
-                </p>
+                   asp-route-id="@Model.Ad.Id">Edit</a>
+                </button>
             </span>
         }
-        @if (@Model.UserId == userManager.GetUserId(User))
+        @if (@Model.Ad.UserId == userManager.GetUserId(User))
         {
             <span class="DeleteBtn">
-                <p class="button">
+                <button class="button">
                     <a class="btn btn-delete" asp-controller="Ad" asp-action="Delete"
-                   asp-route-id="@Model.Id">Delete</a>
-                </p>
+                   asp-route-id="@Model.Ad.Id">Delete</a>
+                </button>
             </span>
         }
     </div>
 </div>
+
+@section Scripts{
+<script src="~/js/likeButton.js" asp-append-version="true"></script>
+}
