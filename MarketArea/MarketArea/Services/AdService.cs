@@ -83,7 +83,7 @@ namespace MarketArea.Services
                 UserId = user.Id,
                 CityId = city.Id,
                 CategoryId = category.Id,
-                Description = model.Description,
+                Description = model.Description
             };
 
             try
