@@ -2,7 +2,7 @@
 
 namespace MarketArea.ViewModels
 {
-    public class LikeAdViewModel
+    public class LikeAdViewModel : SeenAdViewModel
     {
         public Ad Ad { get; set; }
         public int NumberOfLikes { get; set; }

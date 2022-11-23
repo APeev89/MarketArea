@@ -11,7 +11,7 @@
 function likeButtonFunc(event) {
 
     let likeId = event.target.getAttribute("id");
-    
+    let v = "tx";
     $.ajax({
         type: "post",
         url: "https://localhost:7134/Like/LikeDislike",

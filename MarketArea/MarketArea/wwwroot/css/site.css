@@ -45,6 +45,12 @@ body {
     height: 160px;
     margin: 10px;
 }
+img {
+    float: left;
+    width: 600px;
+    height: 600px;
+    object-fit: cover;
+}
 
 .wrapper {
     float: left;
@@ -61,4 +67,15 @@ body {
 
 .pull-right {
     text-align: center
+}
+.counter {
+    position: absolute;
+    left: 95%;
+    width: 140px;
+    height: 70px;
+}
+.caption-full {
+    position: relative;
+    top: 135px;
+    left: 20%;
 }

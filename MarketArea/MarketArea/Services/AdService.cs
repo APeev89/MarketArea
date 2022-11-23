@@ -147,18 +147,40 @@ namespace MarketArea.Services
             return true; 
         }
 
-        public LikeAdViewModel Details(string id)
+        public LikeAdViewModel Details(string id, IdentityUser user)
         {
             var ad = repo.All<Ad>().Include(x => x.City).Include(x => x.Category).Single(x => x.Id == id);
             var adLikes = repo.All<UserLikes>().Where(a => a.AdId == ad.Id).ToDictionary(u => u.UserId);
+
+            int seenCounter = SeenCounter(ad, user);
             LikeAdViewModel likeAd = new LikeAdViewModel()
             {
                 Ad = ad,
-                NumberOfLikes = adLikes.Count()
+                NumberOfLikes = adLikes.Count(),
+                NumberOfSeen = seenCounter
+                
 
             };
             return likeAd;
 
+        }
+
+        private int SeenCounter(Ad ad, IdentityUser user)
+        {
+            int numberOfSeen = 0;
+            var adLikes = repo.All<UserSeens>().Where(a => a.AdId == ad.Id).ToDictionary(u => u.UserId);
+            if (adLikes.Count() == 0 || !adLikes.ContainsKey(user.Id))
+            {
+                repo.Add<UserSeens>(new UserSeens
+                {
+                    UserId = user.Id,
+                    AdId = ad.Id
+                });
+                repo.SaveChanges();
+                
+            }
+            numberOfSeen = repo.All<UserSeens>().Where(a => a.AdId == ad.Id).Count();
+            return numberOfSeen;
         }
 
         public bool Edit(EditViewModel model)
