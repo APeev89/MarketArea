@@ -1,0 +1,58 @@
+﻿@inject UserManager<IdentityUser> userManager
+@model MyAdsViewModel
+
+<h2 class="text-center"><u><i class="far fa-folder-open"></i> My Account</u></h2>
+@if (Model.MyAdsList is null)
+{
+    <h2 class="text-center">
+        You don't have any ads! Create new Ad <i class="far fa-hand-point-right"></i> <span class="createNewAd inline">
+            <p class="button inline">
+                <a class="btn btn-primary" asp-controller="Ad" asp-action="Create">Here!</a>
+            </p>
+        </span>
+    </h2>
+}
+else
+{
+    @foreach (var ad in Model.MyAdsList)
+    {
+        <div class="wrapper">
+            <div class="thumbnail">
+                <img class="img" src="@ad.ImageUrl" alt="">
+                <div class="caption">
+                    <h6 class="normal">
+                        <a asp-controller="Ad" asp-action="Details" asp-route-id="@ad.Id" title="@ad.Name">
+                            <strong>@ad.Name</strong>
+                        </a>
+                    </h6>
+
+                    <ul class="date-location">
+                        <li>@ad.City.Name</li>
+                        <li>@ad.DateFrom</li>
+                    </ul>
+                    <h6 class="pull-right">@ad.Price.ToString("c2",CultureInfo.CreateSpecificCulture("bg-BG"))</h6>
+                    <div class="w3-show-inline-block normal">
+                        @if (@ad.UserId == userManager.GetUserId(User))
+                        {
+                            <span class="EditBtn">
+                                <button class="button">
+                                    <a class="btn btn-edit" asp-controller="Ad" asp-action="Edit"
+                           asp-route-id="@ad.Id">Edit</a>
+                                </button>
+                            </span>
+                        }
+                        @if (ad.UserId == userManager.GetUserId(User))
+                        {
+                            <span class="DeleteBtn">
+                                <button class="button">
+                                    <a class="btn btn-delete" asp-controller="Ad" asp-action="Delete"
+                           asp-route-id="@ad.Id">Delete</a>
+                                </button>
+                            </span>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}

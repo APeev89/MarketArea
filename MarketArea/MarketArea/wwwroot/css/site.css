@@ -20,12 +20,14 @@ body {
 .btn-edit {
     color: #fff;
     background-color: #cdad0f;
+    
 }
 
     .btn-edit:hover {
         color: #fff;
         background-color: #2dc416;
         border-color: #2dc416;
+       
     }
 
 .btn-delete {
@@ -37,6 +39,8 @@ body {
         color: #fff;
         background-color: #ff6a00;
         border-color: #ff6a00;
+
+        
     }
 
 .img {
@@ -78,4 +82,13 @@ img {
     position: relative;
     top: 135px;
     left: 20%;
+}
+.inline {
+    display: inline-block;
+}
+.button {
+    border: none;
+    padding: unset;
+    border-radius: 15px;
+    
 }
