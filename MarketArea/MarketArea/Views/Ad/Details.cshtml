@@ -27,8 +27,7 @@
                 <i class="far fa-thumbs-up"></i>Likes @Model.NumberOfLikes
             </button>
         </div>
-
-
+        
         @if (@Model.Ad.UserId == userManager.GetUserId(User))
         {
             <span class="EditBtn">
@@ -48,6 +47,9 @@
             </span>
         }
     </div>
+    <form method="post">
+
+    </form>
 </div>
 
 @section Scripts{
