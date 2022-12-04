@@ -17,6 +17,11 @@ body {
     margin-bottom: 60px;
 }
 
+.ball {
+    position: absolute;
+    border-radius: 100%;
+    opacity: 0.7;
+}
 .btn-edit {
     color: #fff;
     background-color: #cdad0f;
