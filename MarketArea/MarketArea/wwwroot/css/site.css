@@ -1,5 +1,6 @@
 ﻿html {
     font-size: 14px;
+    overflow-x: hidden;
 }
 
 @media (min-width: 768px) {
