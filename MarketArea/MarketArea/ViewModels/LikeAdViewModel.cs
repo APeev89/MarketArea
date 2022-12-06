@@ -6,5 +6,7 @@ namespace MarketArea.ViewModels
     {
         public Ad Ad { get; set; }
         public int NumberOfLikes { get; set; }
+
+        public IEnumerable<Comment>? Comment { get; set; }
     }
 }

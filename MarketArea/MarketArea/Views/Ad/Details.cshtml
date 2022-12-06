@@ -27,7 +27,7 @@
                 <i class="far fa-thumbs-up"></i>Likes @Model.NumberOfLikes
             </button>
         </div>
-        
+
         @if (@Model.Ad.UserId == userManager.GetUserId(User))
         {
             <span class="EditBtn">
@@ -47,11 +47,64 @@
             </span>
         }
     </div>
-    <form method="post">
 
+    <form method="post">
+        <div class="cmt">
+            <div class="form-outline">
+                <label for="addComment">Add a comment:</label>
+                <textarea class="form-control" id="textAreaExample" rows="4" placeholder="What is your comment for this ad?"></textarea>
+            </div>
+            <div class="justify-content-between mt-3">
+                <button type="button" id="btnSend" name="@Model.Ad.Id" class="btn btn-success">Send</button>
+            </div>
+        </div>
     </form>
+
+    <div class="d-flex flex-start">
+
+        <div>
+            <h6 class="fw-bold mb-1">Maggie Marsh</h6>
+            <div class="d-flex align-items-center mb-3">
+                <p class="mb-0">
+                    March 07, 2021
+                    <span class="badge bg-primary">Pending</span>
+                </p>
+                <a href="#!" class="link-muted"><i class="fas fa-pencil-alt ms-2"></i></a>
+                <a href="#!" class="link-muted"><i class="fas fa-redo-alt ms-2"></i></a>
+                <a href="#!" class="link-muted"><i class="fas fa-heart ms-2"></i></a>
+            </div>
+            <p class="mb-0">
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy text ever
+                since the 1500s, when an unknown printer took a galley of type and
+                scrambled it.
+            </p>
+        </div>
+    </div>
+@if (@Model.Comment != null)
+{
+    <div id="@Model.Ad.Id">
+    @foreach (var cmt in Model.Comment)
+    {
+        <div class="d-flex flex-start" id="@cmt.Id">
+            <div>
+                <h6 class="fw-bold mb-1">@cmt.User.UserName</h6>
+                <div class="d-flex align-items-center mb-3">
+                    <p class="mb-0">@cmt.DateFrom.ToString("d")</p>
+                </div>
+                <p class="mb-0">
+                    @cmt.Text
+                </p>
+            </div>
+        </div>
+    }
+    </div>
+}
 </div>
+
+
 
 @section Scripts{
 <script src="~/js/likeButton.js" asp-append-version="true"></script>
+<script src="~/js/comment.js" asp-append-version="true"></script>
 }

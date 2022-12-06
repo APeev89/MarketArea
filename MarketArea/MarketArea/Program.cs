@@ -31,6 +31,7 @@ builder.Services.AddScoped<IRepository, Repository>();
 builder.Services.AddScoped<IAdService, AdService>();
 builder.Services.AddScoped<IFavoriteService, FavoriteService>();
 builder.Services.AddScoped<ILikeService, LikeService>();
+builder.Services.AddScoped<ICommentService, CommentService>();
 builder.Services.AddScoped<IValidationService, ValidationService>();
 
 builder.Services.AddControllersWithViews()
