@@ -1,5 +1,6 @@
 ﻿using MarketArea.Contracts;
 using MarketArea.Data.Common;
+using MarketArea.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,13 +22,8 @@ namespace MarketArea.Controllers
             var user = userManager.GetUserAsync(User).Result;
             commentService.Add(id, text, user);
 
-
             return Json(new { result = "success" });
         }
 
-        public IActionResult AllComments(string id)
-        {
-            return Json(new { result = "success" });
-        }
     }
 }

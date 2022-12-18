@@ -59,34 +59,15 @@
             </div>
         </div>
     </form>
-
-    <div class="d-flex flex-start">
-
-        <div>
-            <h6 class="fw-bold mb-1">Maggie Marsh</h6>
-            <div class="d-flex align-items-center mb-3">
-                <p class="mb-0">
-                    March 07, 2021
-                    <span class="badge bg-primary">Pending</span>
-                </p>
-                <a href="#!" class="link-muted"><i class="fas fa-pencil-alt ms-2"></i></a>
-                <a href="#!" class="link-muted"><i class="fas fa-redo-alt ms-2"></i></a>
-                <a href="#!" class="link-muted"><i class="fas fa-heart ms-2"></i></a>
-            </div>
-            <p class="mb-0">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy text ever
-                since the 1500s, when an unknown printer took a galley of type and
-                scrambled it.
-            </p>
-        </div>
-    </div>
-@if (@Model.Comment != null)
+    <hr>
+   
+@if (@Model.Comments != null)
 {
-    <div id="@Model.Ad.Id">
-    @foreach (var cmt in Model.Comment)
+    <div id="ListOfComments">
+
+    @foreach (var cmt in Model.Comments)
     {
-        <div class="d-flex flex-start" id="@cmt.Id">
+        <div class="d-flex flex-start" id="@cmt.Id" style="width:400px;">
             <div>
                 <h6 class="fw-bold mb-1">@cmt.User.UserName</h6>
                 <div class="d-flex align-items-center mb-3">
@@ -97,6 +78,7 @@
                 </p>
             </div>
         </div>
+        <hr>
     }
     </div>
 }
@@ -107,4 +89,5 @@
 @section Scripts{
 <script src="~/js/likeButton.js" asp-append-version="true"></script>
 <script src="~/js/comment.js" asp-append-version="true"></script>
+@*<script src="~/js/listOfComments.js" asp-append-version="true"></script>*@
 }

@@ -1,4 +1,5 @@
-﻿window.onload = function () {
+﻿$(document).ready(function () {
+
     var likebtn = document.getElementsByClassName("Like");
 
     for (var i = 0; i < likebtn.length; i++) {
@@ -6,7 +7,11 @@
         likebtn[i].addEventListener('click', likeButtonFunc)
 
     }
-}
+});
+
+//window.addEventListener("load", yourfunction, false);
+
+//}
 
 function likeButtonFunc(event) {
 

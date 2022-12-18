@@ -1,17 +1,21 @@
-﻿window.onload = function () {
+﻿$(document).ready(function () {
 
     var btnSend = document.getElementById("btnSend");
 
     btnSend.addEventListener("click", sendButtonFunc)
+});
 
-    
-}
+//window.onload = function () {
+
+
+
+//}
 
 function sendButtonFunc(event) {
 
     var sendId = event.target.getAttribute("name");
     var sendText = document.getElementById("textAreaExample").value;
-    
+
     $.ajax({
         type: "post",
         url: "https://localhost:7134/Comment/Add",

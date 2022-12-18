@@ -151,16 +151,18 @@ namespace MarketArea.Services
         {
             var ad = repo.All<Ad>().Include(x => x.City).Include(x => x.Category).Single(x => x.Id == id);
             var adLikes = repo.All<UserLikes>().Where(a => a.AdId == ad.Id).ToDictionary(u => u.UserId);
-
+            var comments = repo.All<Comment>().Where(x => x.AdId == ad.Id).Include(u => u.User).OrderByDescending(x=>x.DateFrom);
             int seenCounter = SeenCounter(ad, user);
+
             LikeAdViewModel likeAd = new LikeAdViewModel()
             {
                 Ad = ad,
                 NumberOfLikes = adLikes.Count(),
-                NumberOfSeen = seenCounter
-                
+                NumberOfSeen = seenCounter,
+                Comments = comments
 
             };
+
             return likeAd;
 
         }

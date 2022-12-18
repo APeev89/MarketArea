@@ -21,6 +21,7 @@ namespace MarketArea.Services
                 Text = text,
                 DateFrom = DateTime.Now,
                 UserId = user.Id,
+                User = user,
                 AdId = id
             };
             try
@@ -32,7 +33,7 @@ namespace MarketArea.Services
             {
                 throw new Exception("Cannot be saved comment!");
             }
-           
+
         }
     }
 }
