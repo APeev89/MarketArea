@@ -42,7 +42,17 @@ namespace MarketArea.Controllers
         {
             var user = userManager.GetUserAsync(User).Result;
             FavouritesViewModel favouritesViewModel = adService.all(category, user);
+            var watch = new System.Diagnostics.Stopwatch();
 
+            watch.Start();
+
+            for (int i = 0; i < 1000; i++)
+            {
+                Console.Write(i);
+            }
+
+            watch.Stop();
+            Console.WriteLine($"Execution Time: {watch.ElapsedMilliseconds} ms");
             return View(favouritesViewModel);
         }
 
@@ -87,8 +97,6 @@ namespace MarketArea.Controllers
             });
         }
 
-       
-
         [HttpPost]
         public IActionResult Create(CreateAdViewModel model)
         {
@@ -96,7 +104,9 @@ namespace MarketArea.Controllers
             var (created, error) = adService.Create(model, user);
             if (!created)
             {
-                return Redirect("/Ad/Create");
+                ModelState.AddModelError("",error);
+                return View();
+                //return Redirect("/Ad/Create");
             }
 
             return Redirect("/");

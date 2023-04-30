@@ -22,8 +22,6 @@ namespace MarketArea.Controllers
             favoriteService = _favoriteService;
         }
 
-
-
         public IActionResult MyFavorite()
         {
             var user = userManager.GetUserAsync(User).Result;

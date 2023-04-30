@@ -14,15 +14,15 @@ namespace MarketArea.ViewModels
         public decimal Price { get; set; }
 
         [Required]
-        [StringLength(20)]
+        [StringLength(20, ErrorMessage = "{0} must not be greater that {1} characters.")]
         public string PhoneNumber { get; set; }
 
         [Required]
-        [StringLength(100)]
+        [StringLength(100, ErrorMessage = "{0} must not be greater that {1} characters.")]
         public string AdCity { get; set; }
 
         [Required]
-        [StringLength(300)]
+        [StringLength(300, ErrorMessage = "{0} must not be greater that {1} characters.")]
         public string ImageUrl { get; set; }
 
         [Required]
