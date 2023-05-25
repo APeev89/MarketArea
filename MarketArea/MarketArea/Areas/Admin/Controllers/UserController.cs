@@ -2,6 +2,8 @@
 using MarketArea.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace MarketArea.Areas.Admin.Controllers
 {
@@ -22,7 +24,7 @@ namespace MarketArea.Areas.Admin.Controllers
             return View();
         }
 
-        
+
         public async Task<ActionResult> ManageUsers()
         {
             var user = await userService.GetUsers();
@@ -33,8 +35,22 @@ namespace MarketArea.Areas.Admin.Controllers
 
         public async Task<ActionResult> Roles(string id)
         {
-            
-            return Ok(id);
+            var user = await userService.GetUserById(id);
+            var model = new UserRolesViewModel()
+            {
+                UserId = user.Id,
+                Name = $"{user.UserName}"
+            };
+
+            ViewBag.RoleItems = roleManager.Roles
+                .ToList()
+                .Select(r => new SelectListItem()
+                {
+                    Text = r.Name,
+                    Value = r.Id,
+                    Selected = userManager.IsInRoleAsync(user, r.Name).Result
+                });
+            return View(model);
         }
 
         public async Task<ActionResult> Edit(string id)
@@ -43,24 +59,23 @@ namespace MarketArea.Areas.Admin.Controllers
             return View(user);
         }
         [HttpPost]
-        public async Task<ActionResult> Edit(string id, UserEditViewModel model)
+        public async Task<ActionResult> Edit(UserEditViewModel model)
         {
-            if (!ModelState.IsValid || id != model.Id)
+            if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
             await userService.UpdateUser(model);
-            var user = await userService.GetUserForEdit(id);
-            return View(user);
+            return View(model);
         }
 
         public async Task<ActionResult> CreateRole()
         {
-            //await roleManager.CreateAsync(new IdentityRole()
-            //{
-            //    Name = "Administrator"
-            //});
+            await roleManager.CreateAsync(new IdentityRole()
+            {
+                Name = "User"
+            });
 
             return Ok();
         }

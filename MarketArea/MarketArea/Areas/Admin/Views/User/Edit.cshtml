@@ -1,6 +1,6 @@
 ﻿@model UserEditViewModel
 @{
-    ViewData["Title"] = "Edit User";
+    ViewData["Title"] = "Edit Page";
 }
 
 <div class="row">
@@ -9,9 +9,7 @@
             <input type="hidden" name="Id" value="@Model.Id" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-floating">
-                <div>
-                    <label asp-for="Name" class="form-label"></label>
-                </div>
+                <label asp-for="Name" class="form-label"></label>
                 <input asp-for="Name" class="form-control" aria-required="true" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
@@ -27,5 +25,5 @@
 </div>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+<partial name="_ValidationScriptsPartial" />
 }

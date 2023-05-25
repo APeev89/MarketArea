@@ -3,15 +3,22 @@ using MarketArea.Data.Common;
 using MarketArea.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace MarketArea.Services
 {
     public class UserService : IUserService
     {
         private readonly IRepository repo;
-        public UserService(IRepository _repo)
+        public UserService(IRepository _repo )
         {
             repo = _repo;
+        }
+
+        public async Task<IdentityUser> GetUserById(string id)
+        {
+           return repo.GetById<IdentityUser>(id);
+           
         }
 
         public async Task<UserEditViewModel> GetUserForEdit(string id)
