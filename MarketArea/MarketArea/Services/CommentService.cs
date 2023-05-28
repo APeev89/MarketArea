@@ -35,5 +35,12 @@ namespace MarketArea.Services
             }
 
         }
+
+        public void Remove(string id)
+        {
+            var commnet = repo.GetById<Comment>(id);
+            repo.Delete(commnet);
+            repo.SaveChanges();
+        }
     }
 }

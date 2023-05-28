@@ -25,7 +25,7 @@ namespace MarketArea.Areas.Admin.Controllers
         }
 
 
-        public async Task<ActionResult> ManageUsers()
+        public async Task<IActionResult> ManageUsers()
         {
             var user = await userService.GetUsers();
 
@@ -33,7 +33,7 @@ namespace MarketArea.Areas.Admin.Controllers
         }
 
 
-        public async Task<ActionResult> Roles(string id)
+        public async Task<IActionResult> Roles(string id)
         {
             var user = await userService.GetUserById(id);
             var model = new UserRolesViewModel()
@@ -47,19 +47,36 @@ namespace MarketArea.Areas.Admin.Controllers
                 .Select(r => new SelectListItem()
                 {
                     Text = r.Name,
-                    Value = r.Id,
+                    Value = r.Name,
                     Selected = userManager.IsInRoleAsync(user, r.Name).Result
-                });
+                }).ToList();
             return View(model);
         }
 
-        public async Task<ActionResult> Edit(string id)
+        [HttpPost]
+        public async Task<IActionResult> Roles(UserRolesViewModel model)
+        {
+            
+            var user = await userService.GetUserById(model.UserId);
+            var userRoles = await userManager.GetRolesAsync(user);
+            await userManager.RemoveFromRolesAsync(user, userRoles);
+
+            if (model.RoleNames?.Length > 0)
+            {
+                await userManager.AddToRolesAsync(user, model.RoleNames);
+            }
+            
+
+            return RedirectToAction(nameof(ManageUsers));
+        }
+
+        public async Task<IActionResult> Edit(string id)
         {
             var user = await userService.GetUserForEdit(id);
             return View(user);
         }
         [HttpPost]
-        public async Task<ActionResult> Edit(UserEditViewModel model)
+        public async Task<IActionResult> Edit(UserEditViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -70,7 +87,7 @@ namespace MarketArea.Areas.Admin.Controllers
             return View(model);
         }
 
-        public async Task<ActionResult> CreateRole()
+        public async Task<IActionResult> CreateRole()
         {
             await roleManager.CreateAsync(new IdentityRole()
             {

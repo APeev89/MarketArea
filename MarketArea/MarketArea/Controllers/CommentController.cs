@@ -25,5 +25,14 @@ namespace MarketArea.Controllers
             return Json(new { result = "success" });
         }
 
+        public IActionResult Remove(Dictionary<string,string> ids)
+        {
+            var adId = ids.Values.First();
+            var commnetId = ids.Values.Last();
+            commentService.Remove(commnetId);
+
+             return Redirect($"/Ad/Details/{adId}");
+        }
+
     }
 }

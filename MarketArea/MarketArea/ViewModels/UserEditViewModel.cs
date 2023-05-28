@@ -10,5 +10,6 @@ namespace MarketArea.ViewModels
         [Required]
         [Display(Name = "Full Name")]
         public string Name { get; set; }
+
     }
 }

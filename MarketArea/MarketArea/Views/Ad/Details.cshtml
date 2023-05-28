@@ -60,28 +60,41 @@
         </div>
     </form>
     <hr>
-   
-@if (@Model.Comments != null)
-{
-    <div id="ListOfComments">
 
-    @foreach (var cmt in Model.Comments)
+    @if (@Model.Comments != null)
     {
-        <div class="d-flex flex-start" id="@cmt.Id" style="width:400px;">
-            <div>
-                <h6 class="fw-bold mb-1">@cmt.User.UserName</h6>
-                <div class="d-flex align-items-center mb-3">
-                    <p class="mb-0">@cmt.DateFrom.ToString("d")</p>
+        <div id="ListOfComments">
+
+            @foreach (var cmt in Model.Comments)
+            {
+                <div class="d-flex flex-start" id="@cmt.Id" style="width:400px;">
+                    <div>
+                        <h6 class="fw-bold mb-1">@cmt.User.UserName</h6>
+                        <div class="d-flex align-items-center mb-3">
+                            <p class="mb-0">@cmt.DateFrom.ToString("d")</p>
+                        </div>
+                        <p class="mb-0">
+                            @cmt.Text
+                        </p>
+                    </div>
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        var parms = new Dictionary<string, string>
+                        {
+                            {"adId", @Model.Ad.Id},
+                            {"commentId", @cmt.Id}
+                        };
+                        <span class="RemoveBtn">
+                            <button class="button">
+                                <a class="btn btn-remove" asp-controller="Comment" asp-action="Remove" asp-all-route-data="parms">Remove</a>
+                            </button>
+                        </span>
+                    }
                 </div>
-                <p class="mb-0">
-                    @cmt.Text
-                </p>
-            </div>
+                <hr>
+            }
         </div>
-        <hr>
     }
-    </div>
-}
 </div>
 
 

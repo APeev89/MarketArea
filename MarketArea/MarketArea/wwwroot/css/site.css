@@ -23,17 +23,16 @@ body {
     border-radius: 100%;
     opacity: 0.7;
 }
+
 .btn-edit {
     color: #fff;
     background-color: #cdad0f;
-    
 }
 
     .btn-edit:hover {
         color: #fff;
         background-color: #2dc416;
         border-color: #2dc416;
-       
     }
 
 .btn-delete {
@@ -45,9 +44,16 @@ body {
         color: #fff;
         background-color: #ff6a00;
         border-color: #ff6a00;
-
-        
     }
+
+.btn-remove {
+    border: 2px blue dashed;
+    margin-right: 0;
+    margin-left: auto;
+    display: block;
+}
+
+   
 
 .img {
     padding: 12px;
@@ -55,6 +61,7 @@ body {
     height: 160px;
     margin: 10px;
 }
+
 img {
     float: left;
     width: 500px;
@@ -78,27 +85,31 @@ img {
 .pull-right {
     text-align: center
 }
+
 .counter {
     position: absolute;
     left: 95%;
     width: 140px;
     height: 70px;
 }
+
 .caption-full {
     position: relative;
     top: 135px;
     left: 20%;
 }
+
 .inline {
     display: inline-block;
 }
+
 .button {
     border: none;
     padding: unset;
     border-radius: 15px;
     margin: 10px;
-    
 }
+
 .cmt {
     position: relative;
     width: 603px;
