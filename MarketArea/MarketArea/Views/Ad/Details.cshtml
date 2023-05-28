@@ -37,7 +37,7 @@
                 </button>
             </span>
         }
-        @if (@Model.Ad.UserId == userManager.GetUserId(User))
+        @if (@Model.Ad.UserId == userManager.GetUserId(User) || User.IsInRole("Administrator"))
         {
             <span class="DeleteBtn">
                 <button class="button">
@@ -77,13 +77,13 @@
                             @cmt.Text
                         </p>
                     </div>
-                    @if (User.IsInRole("Administrator"))
+                    @if (@cmt.UserId == userManager.GetUserId(User) || User.IsInRole("Administrator"))
                     {
                         var parms = new Dictionary<string, string>
-                        {
-                            {"adId", @Model.Ad.Id},
-                            {"commentId", @cmt.Id}
-                        };
+            {
+            {"adId", @Model.Ad.Id},
+            {"commentId", @cmt.Id}
+            };
                         <span class="RemoveBtn">
                             <button class="button">
                                 <a class="btn btn-remove" asp-controller="Comment" asp-action="Remove" asp-all-route-data="parms">Remove</a>
