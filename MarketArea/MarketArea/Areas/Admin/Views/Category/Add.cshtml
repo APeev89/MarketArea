@@ -1,0 +1,14 @@
+﻿@model CreateAdViewModel
+@{
+    ViewData["Title"] = "Create a new category";
+}
+<div class="text-center">
+    <h1><u>@ViewData["Title"]</u></h1>
+    <form method="post">
+        <div class="form-group">
+            <label for="Name"></label>
+            <input type="text" class="form-control" id="Name" name="Name" placeholder="Name of category">
+        </div>
+        <button type="submit" class="btn btn-primary text-uppercase">Submit</button>
+    </form>
+</div>

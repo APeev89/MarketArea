@@ -8,6 +8,9 @@
         @if (User.IsInRole("Administrator"))
         {
             <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Category" asp-action="ManageCategorys"><i class="fas fa-wrench"></i> Setings Category</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link text-dark" asp-area="Admin" asp-controller="User" asp-action="ManageUsers"><i class="fas fa-crown"></i> ADMIN</a>
             </li>
         }

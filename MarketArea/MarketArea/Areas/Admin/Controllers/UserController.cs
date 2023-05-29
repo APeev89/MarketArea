@@ -19,11 +19,7 @@ namespace MarketArea.Areas.Admin.Controllers
             userManager = _userManager;
             userService = _userService;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
-
+       
 
         public async Task<IActionResult> ManageUsers()
         {
