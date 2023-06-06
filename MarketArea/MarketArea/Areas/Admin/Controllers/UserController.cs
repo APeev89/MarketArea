@@ -80,7 +80,7 @@ namespace MarketArea.Areas.Admin.Controllers
             }
 
             await userService.UpdateUser(model);
-            return View(model);
+            return RedirectToAction(nameof(ManageUsers));
         }
 
         public async Task<IActionResult> CreateRole()
